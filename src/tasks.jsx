@@ -186,6 +186,7 @@ function TaskPanel({
     onReorderTasks,
     onRenameList,
     onDeleteList,
+    onOpenSidebar,
 }) {
     const [editingListName, setEditingListName] = useState(false);
     const [listNameValue, setListNameValue] = useState(list.name);
@@ -263,6 +264,14 @@ function TaskPanel({
         <main className="main">
             <header className="main-header">
                 <div className="main-title-row">
+                    <button
+                        className="sidebar-toggle"
+                        onClick={onOpenSidebar}
+                        title="Ver listas"
+                        aria-label="Ver listas"
+                    >
+                        <Icon.Menu />
+                    </button>
                     {editingListName ? (
                         <input
                             className="main-title-input"

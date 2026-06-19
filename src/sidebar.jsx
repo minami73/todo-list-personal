@@ -15,6 +15,8 @@ function Sidebar({
     theme,
     onToggleTheme,
     taskCounts,
+    isOpen,
+    onClose,
 }) {
     const [editingId, setEditingId] = useState(null);
     const [editValue, setEditValue] = useState("");
@@ -78,7 +80,13 @@ function Sidebar({
     };
 
     return (
-        <aside className="sidebar">
+        <>
+            <div
+                className={`sidebar-backdrop ${isOpen ? "is-visible" : ""}`}
+                onClick={onClose}
+                aria-hidden
+            />
+            <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
             <div className="sidebar-header">
                 <div className="sidebar-brand">
                     <div className="sidebar-brand-mark">T</div>
@@ -198,7 +206,8 @@ function Sidebar({
                 <span>{lists.length} {lists.length === 1 ? "lista" : "listas"}</span>
                 <span>⇧⌘N nueva</span>
             </div>
-        </aside>
+            </aside>
+        </>
     );
 }
 

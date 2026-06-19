@@ -91,6 +91,7 @@ function App() {
     const [theme, setTheme] = useState(loadTheme);
     const [toast, setToast] = useState(null); // { msg, onUndo, timeoutId }
     const toastTimeoutRef = useRef(null);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     /* ----- persistence ----- */
     useEffect(() => { saveState(state); }, [state]);
@@ -129,7 +130,10 @@ function App() {
     };
 
     /* ----- list actions ----- */
-    const handleSelectList = (id) => setState((s) => ({ ...s, activeId: id }));
+    const handleSelectList = (id) => {
+        setState((s) => ({ ...s, activeId: id }));
+        setSidebarOpen(false);
+    };
 
     const handleCreateList = () => {
         const id = uid();
@@ -277,6 +281,8 @@ function App() {
                 theme={theme}
                 onToggleTheme={toggleTheme}
                 taskCounts={taskCounts}
+                isOpen={sidebarOpen}
+                onClose={() => setSidebarOpen(false)}
             />
 
             {activeList ? (
@@ -290,6 +296,7 @@ function App() {
                     onReorderTasks={handleReorderTasks}
                     onRenameList={handleRenameList}
                     onDeleteList={handleDeleteList}
+                    onOpenSidebar={() => setSidebarOpen(true)}
                 />
             ) : (
                 <main className="main">
